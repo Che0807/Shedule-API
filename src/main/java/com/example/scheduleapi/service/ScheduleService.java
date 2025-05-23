@@ -1,6 +1,7 @@
 package com.example.scheduleapi.service;
 
 import com.example.scheduleapi.dto.ScheduleResponesDto;
+import com.example.scheduleapi.dto.ScheduleUpdateRequestDto;
 import com.example.scheduleapi.entity.Schedule;
 import com.example.scheduleapi.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,6 +61,29 @@ public class ScheduleService {
         Schedule findSchedule = optionalSchedule.get();
 
         return new ScheduleResponesDto(findSchedule.getUsername(), findSchedule.getTitle(), findSchedule.getTodo(), findSchedule.getCreatedAt(), findSchedule.getUpdatedAt());
+    }
+
+    //수정
+    public ScheduleResponesDto updateSchedule(Long id, ScheduleUpdateRequestDto dto) {
+        Schedule schedule = scheduleRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 일정이 없습니다."));
+
+        if (dto.getUsername() != null) schedule.setUsername(dto.getUsername());
+        if (dto.getTitle() != null) schedule.setTitle(dto.getTitle());
+        if (dto.getTodo() != null) schedule.setTodo(dto.getTodo());
+
+        schedule.setUpdatedAt(LocalDateTime.now());
+
+        Schedule updated = scheduleRepository.save(schedule);
+
+        return new ScheduleResponesDto(
+                updated.getId(),
+                updated.getUsername(),
+                updated.getTitle(),
+                updated.getTodo(),
+                updated.getCreatedAt(),
+                updated.getUpdatedAt()
+        );
     }
 
 

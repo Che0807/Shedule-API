@@ -2,9 +2,11 @@ package com.example.scheduleapi.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
+@Setter
 @Entity
 @Table(name = "schedule")
 @EntityListeners(AuditingEntityListener.class)
@@ -33,6 +35,7 @@ public class Schedule extends BaseEntity {
         this.title = title;
         this.todo = todo;
     }
+
 }
 
 
