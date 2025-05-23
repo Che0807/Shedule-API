@@ -1,4 +1,4 @@
-package com.example.sheduleapi.dto;
+package com.example.scheduleapi.dto;
 
 import lombok.Getter;
 
@@ -27,4 +27,14 @@ public class ScheduleResponesDto {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+
+    public ScheduleResponesDto(String username, String title, String todo) {
+        this.username = username;
+        this.title = title;
+        this.todo = todo;
+        this.id = null;          // id는 아직 없으므로 null
+        this.createdAt = null;   // createdAt도 null
+        this.updatedAt = null;   // updatedAt도 null
+    }
 }
+
