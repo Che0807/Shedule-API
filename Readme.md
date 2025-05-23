@@ -109,11 +109,11 @@ ___
 <details>
 <summary> 일정 단건 조회 </summary>
 
-### 일정 전체조회 API (GET `/schedules/{userID}`)
+### 일정 단건조회 API (GET `/schedules/{id}`)
 
 | 항목       |            설명             |
 |----------|:-------------------------:|
-| URL      |   `/schedles/{userID}`    |
+| URL      |     `/schedles/{id}`      |
 | Method   |           `GET`           |
 | 설명       |     등록된 일정을 단건 조회합니다.     |
 | Request  |      경로 파라미터{userID}      |
@@ -122,9 +122,9 @@ ___
 
 #### Path Variable
 
-| 파라미터명    | 타입  | 설명         | 필수 여부 |
-|----------|-----|------------|-------|
-| `userID` | int | 조회할 일정의 ID | O     |
+| 파라미터명 | 타입  | 설명         | 필수 여부 |
+|-------|-----|------------|-------|
+| `id`  | Long | 조회할 일정의 ID | O     |
 
 #### Response Body (성공 시)
 
@@ -155,11 +155,11 @@ ___
 <details>
   <summary> 일정 수정 API</summary>
 
-### 일정 수정 API 명세 (PATCH `/schedules/{userID}`)
+### 일정 수정 API 명세 (PATCH `/schedules/{id}`)
 
 | 항목       | 설명                        |
 |----------|---------------------------|
-| URL      | `/schedules/{userID}`     |
+| URL      | `/schedules/{id}`         |
 | Method   | `PATCH`                   |
 | 설명       | 특정 ID의 일정을 수정합니다.         |
 | Request  | JSON Body (아래 참고)         |
@@ -170,7 +170,7 @@ ___
 
 | 이름   | 타입    | 설명         | 필수 여부 |
 |------|-------|------------|-------|
-| `id` | `int` | 수정할 일정의 ID | O     |
+| `id` | `Long` | 수정할 일정의 ID | O     |
 
 #### Request Body
 
@@ -221,11 +221,11 @@ ___
 <details>
   <summary> 일정 삭제 API</summary>
 
-### 일정 삭제 API 명세 (DELETE `/schedules/{userID}`)
+### 일정 삭제 API 명세 (DELETE `/schedules/{id}`)
 
 | 항목       | 설명                       |
 |----------|--------------------------|
-| URL      | `/schedules/{userID}`    |
+| URL      | `/schedules/{id}`        |
 | Method   | `DELETE`                 |
 | 설명       | 특정 ID의 일정을 삭제합니다.        |
 | Request  | 없음                       |
@@ -234,9 +234,9 @@ ___
 
 #### Path Variable
 
-| 파라미터명 | 타입  | 설명         | 필수 여부 |
-|-------|-----|------------|-------|
-| `id`  | int | 삭제할 일정의 ID | O     |
+| 파라미터명 | 타입   | 설명         | 필수 여부 |
+|-------|------|------------|-------|
+| `id`  | Long | 삭제할 일정의 ID | O     |
 
 #### Response Body (성공 시)
 

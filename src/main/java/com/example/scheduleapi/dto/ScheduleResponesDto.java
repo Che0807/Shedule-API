@@ -1,10 +1,12 @@
 package com.example.scheduleapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ScheduleResponesDto {
 
     private final Long id;
@@ -28,13 +30,13 @@ public class ScheduleResponesDto {
         this.updatedAt = updatedAt;
     }
 
-    public ScheduleResponesDto(String username, String title, String todo) {
+    public ScheduleResponesDto(String username, String title, String todo, LocalDateTime createdAt,LocalDateTime updatedAt) {
+        this.id = null;
         this.username = username;
         this.title = title;
         this.todo = todo;
-        this.id = null;          // id는 아직 없으므로 null
-        this.createdAt = null;   // createdAt도 null
-        this.updatedAt = null;   // updatedAt도 null
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 }
 
