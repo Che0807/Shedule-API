@@ -1,6 +1,8 @@
 package com.example.scheduleapi.dto;
 
+import com.example.scheduleapi.entity.Schedule;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -39,4 +41,5 @@ public class ScheduleResponesDto {
         this.updatedAt = updatedAt;
     }
 }
+
 
