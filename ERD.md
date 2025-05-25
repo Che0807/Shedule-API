@@ -56,3 +56,4 @@ ___
 | `created_at` |   `DATETIME`   | N       | 일정을 처음 작성한 날짜    |
 | `updated_at` |   `DATETIME`   | N       | 마지막으로 수정된 날짜     |
 
++ ![ERD](./images/erd-diagram.png)

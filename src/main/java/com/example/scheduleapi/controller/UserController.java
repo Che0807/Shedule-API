@@ -30,7 +30,7 @@ public class UserController {
         return new ResponseEntity<>(signUpResponseDto, HttpStatus.CREATED);
     }
 
-    //@GetMapping{"/{id}"}
+    @GetMapping("/{id}")
 
     public ResponseEntity<UserResponseDto> findById(@PathVariable Long id) {
 
@@ -40,7 +40,7 @@ public class UserController {
 
     }
 
-    //@PatchMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<Void> updatePassword(
             @PathVariable Long id,
             @RequestBody UpdatePasswordRequestDto requestDto
@@ -50,6 +50,14 @@ public class UserController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        userService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
 
 }
 

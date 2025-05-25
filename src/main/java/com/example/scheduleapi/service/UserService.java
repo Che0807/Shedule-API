@@ -1,20 +1,13 @@
 package com.example.scheduleapi.service;
 
-import com.example.scheduleapi.dto.ScheduleResponseDto;
 import com.example.scheduleapi.dto.SignUpResponseDto;
-import com.example.scheduleapi.dto.UpdatePasswordRequestDto;
 import com.example.scheduleapi.dto.UserResponseDto;
-import com.example.scheduleapi.entity.Schedule;
 import com.example.scheduleapi.entity.User;
 import com.example.scheduleapi.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
@@ -59,5 +52,13 @@ public class UserService {
         findUser.updatePassword(newPassword);
 
     }
+
+    public void delete(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 유저가 없습니다.");
+        }
+        userRepository.deleteById(id);
+    }
+
 }
 

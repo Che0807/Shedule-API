@@ -19,37 +19,42 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
     //생성
-    @PostMapping
-    public ResponseEntity<ScheduleResponseDto> postSchedule(@RequestBody ScheduleRequestDto requestDto) {
+    @PostMapping("/{username}")
+    public ResponseEntity<ScheduleResponseDto> postSchedule(
+            @PathVariable String username,
+            @RequestBody ScheduleRequestDto requestDto) {
 
         ScheduleResponseDto scheduleResponseDto =
                 scheduleService.save(
-                        requestDto.getUsername(),
+                        username,
                         requestDto.getTitle(),
                         requestDto.getTodo()
                 );
 
         return new ResponseEntity<>(scheduleResponseDto,HttpStatus.CREATED);
-
     }
+
     //다건 조회
-    @GetMapping
-    public ResponseEntity<List<ScheduleResponseDto>> findAll() {
-
-        List<ScheduleResponseDto> scheduleResponseDtoList = scheduleService.findAll();
-
-        return new ResponseEntity<>(scheduleResponseDtoList, HttpStatus.OK);
+    @GetMapping("/user/{username}")
+    public ResponseEntity<List<ScheduleResponseDto>> findByUsername(@PathVariable String username) {
+        List<ScheduleResponseDto> schedules = scheduleService.findByUsername(username);
+        return new ResponseEntity<>(schedules, HttpStatus.OK);
     }
+
+
 
 
     //단건 조회
-    @GetMapping("/{id}")
-    public ResponseEntity<ScheduleResponseDto> findByID(@PathVariable Long id) {
+    @GetMapping("/user/{username}/schedule/{id}")
+    public ResponseEntity<ScheduleResponseDto> findByID(
+            @PathVariable String username,
+            @PathVariable Long id) {
 
-        ScheduleResponseDto scheduleResponseDto = scheduleService.findById(id);
+        ScheduleResponseDto scheduleResponseDto = scheduleService.findByIdAndUsername(id, username);
 
         return new ResponseEntity<>(scheduleResponseDto, HttpStatus.OK);
     }
+
 
     //수정
     @PatchMapping("/{id}")

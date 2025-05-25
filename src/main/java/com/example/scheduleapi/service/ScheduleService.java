@@ -40,19 +40,25 @@ public class ScheduleService {
     }
 
 
-    //다건 조회
-    public List<ScheduleResponseDto> findAll() {
-        return scheduleRepository.findAll()
-                .stream()
-                .map(ScheduleResponseDto::toDto)
-                .toList();
+    // 다건 조회 (username 으로 필터)
+    public List<ScheduleResponseDto> findByUsername(String username) {
+        User user = userRepository.findUserByUsernameOrElseThrow(username);
+        List<Schedule> schedules = scheduleRepository.findAllByUser(user);
+        return schedules.stream().map(ScheduleResponseDto::toDto).toList();
     }
 
-    //단건 조회
-    public ScheduleResponseDto findById(Long id) {
-        Schedule schedule = scheduleRepository.findByIdOrElseThrow(id);
+    // 단건 조회 (id + username 검증 포함)
+    public ScheduleResponseDto findByIdAndUsername(Long id, String username) {
+        Schedule schedule = scheduleRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "스케줄이 없습니다."));
+
+        if (!schedule.getUser().getUsername().equals(username)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "접근 권한이 없습니다.");
+        }
+
         return ScheduleResponseDto.toDto(schedule);
     }
+
 
     // 수정
     public ScheduleResponseDto updateSchedule(Long id, ScheduleUpdateRequestDto dto) {
