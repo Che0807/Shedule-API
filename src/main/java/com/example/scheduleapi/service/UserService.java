@@ -20,37 +20,38 @@ public class UserService {
 
     public SignUpResponseDto signUp(String username, String email, String password) {
         User user = new User(username, email, password);
-
         User savedUser = userRepository.save(user);
-
         return new SignUpResponseDto(savedUser.getId(), savedUser.getUsername(), savedUser.getEmail());
     }
 
-    //단건 조회
+    // 단건 조회
     public UserResponseDto findByID(Long id) {
-        Optional<User> optionalSchedule = userRepository.findById(id);
+        Optional<User> optionalUser = userRepository.findById(id);
 
-        if (optionalSchedule.isEmpty()) {
+        if (optionalUser.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 유저가 없습니다.");
         }
 
-        User findUser = optionalSchedule.get();
+        User findUser = optionalUser.get();
 
-        return new UserResponseDto(findUser.getUsername(),findUser.getEmail());
+        return new UserResponseDto(
+                findUser.getUsername(),
+                findUser.getEmail(),
+                findUser.getCreatedAt(),
+                findUser.getUpdatedAt()
+        );
     }
-
 
     @Transactional
     public void updatePassword(Long id, String oldPassword, String newPassword) {
-
-        User findUser = userRepository.findByIDOrElseThrow(id);
+        User findUser = userRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 유저가 없습니다."));
 
         if (!findUser.getPassword().equals(oldPassword)){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"비밀번호가 일치하지 않습니다.");
         }
 
         findUser.updatePassword(newPassword);
-
     }
 
     public void delete(Long id) {
@@ -59,6 +60,4 @@ public class UserService {
         }
         userRepository.deleteById(id);
     }
-
 }
-
