@@ -3,7 +3,6 @@ package com.example.scheduleapi.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
@@ -26,14 +25,20 @@ public class User extends BaseEntity {
     private String password;
 
     //JPA 에서 기본으로 사용됩니다.
-    protected User() {}
+    public User() {
+    }
 
-    public User(Long id, String username, String email, String password) {
+    public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
     }
+
+    public void updatePassword(String password){
+        this.password = password;
+    }
 }
+
 
 
 

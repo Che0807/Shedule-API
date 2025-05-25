@@ -20,10 +20,10 @@ public class ScheduleController {
 
     //생성
     @PostMapping
-    public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto requestDto) {
+    public ResponseEntity<ScheduleResponseDto> postSchedule(@RequestBody ScheduleRequestDto requestDto) {
 
         ScheduleResponseDto scheduleResponseDto =
-                scheduleService.postService(
+                scheduleService.save(
                         requestDto.getUsername(),
                         requestDto.getTitle(),
                         requestDto.getTodo()
@@ -35,7 +35,9 @@ public class ScheduleController {
     //다건 조회
     @GetMapping
     public ResponseEntity<List<ScheduleResponseDto>> findAll() {
+
         List<ScheduleResponseDto> scheduleResponseDtoList = scheduleService.findAll();
+
         return new ResponseEntity<>(scheduleResponseDtoList, HttpStatus.OK);
     }
 
@@ -44,7 +46,7 @@ public class ScheduleController {
     @GetMapping("/{id}")
     public ResponseEntity<ScheduleResponseDto> findByID(@PathVariable Long id) {
 
-        ScheduleResponseDto scheduleResponseDto = scheduleService.findByID(id);
+        ScheduleResponseDto scheduleResponseDto = scheduleService.findById(id);
 
         return new ResponseEntity<>(scheduleResponseDto, HttpStatus.OK);
     }

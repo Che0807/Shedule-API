@@ -3,16 +3,13 @@ package com.example.scheduleapi.dto;
 import lombok.Getter;
 
 @Getter
-public class SignUpResponseDto {
-
-    private final Long id;
+public class UserResponseDto {
 
     private final String username;
 
     private final String email;
 
-    public SignUpResponseDto(Long id, String username, String email) {
-        this.id = id;
+    public UserResponseDto(String username, String email) {
         this.username = username;
         this.email = email;
     }
