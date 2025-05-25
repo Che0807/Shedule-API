@@ -1,15 +1,13 @@
 package com.example.scheduleapi.dto;
 
-import com.example.scheduleapi.entity.Schedule;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ScheduleResponesDto {
+public class ScheduleResponseDto {
 
     private final Long id;
 
@@ -23,7 +21,7 @@ public class ScheduleResponesDto {
 
     private final LocalDateTime updatedAt;
 
-    public ScheduleResponesDto(Long id, String username, String title, String todo, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public ScheduleResponseDto(Long id, String username, String title, String todo, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.username = username;
         this.title = title;
@@ -32,7 +30,7 @@ public class ScheduleResponesDto {
         this.updatedAt = updatedAt;
     }
 
-    public ScheduleResponesDto(String username, String title, String todo, LocalDateTime createdAt,LocalDateTime updatedAt) {
+    public ScheduleResponseDto(String username, String title, String todo, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = null;
         this.username = username;
         this.title = title;

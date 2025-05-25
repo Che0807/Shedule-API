@@ -1,6 +1,6 @@
 package com.example.scheduleapi.service;
 
-import com.example.scheduleapi.dto.ScheduleResponesDto;
+import com.example.scheduleapi.dto.ScheduleResponseDto;
 import com.example.scheduleapi.dto.ScheduleUpdateRequestDto;
 import com.example.scheduleapi.entity.Schedule;
 import com.example.scheduleapi.repository.ScheduleRepository;
@@ -20,13 +20,13 @@ public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
 
     //생성
-    public ScheduleResponesDto postService(String username, String title, String todo) {
+    public ScheduleResponseDto postService(String username, String title, String todo) {
 
         Schedule schedule = new Schedule(username, title, todo);
 
         Schedule savedSchedule = scheduleRepository.save(schedule);
 
-        return new ScheduleResponesDto(
+        return new ScheduleResponseDto(
                 savedSchedule.getId(),
                 savedSchedule.getUsername(),
                 savedSchedule.getTitle(),
@@ -37,9 +37,9 @@ public class ScheduleService {
     }
 
     //다건 조회
-    public List<ScheduleResponesDto> findAll() {
+    public List<ScheduleResponseDto> findAll() {
         return scheduleRepository.findAll().stream()
-                .map(schedule -> new ScheduleResponesDto(
+                .map(schedule -> new ScheduleResponseDto(
                         schedule.getId(),
                         schedule.getUsername(),
                         schedule.getTitle(),
@@ -51,7 +51,7 @@ public class ScheduleService {
     }
 
     //단건 조회
-    public ScheduleResponesDto findByID(Long id) {
+    public ScheduleResponseDto findByID(Long id) {
         Optional<Schedule> optionalSchedule = scheduleRepository.findById(id);
 
         if (optionalSchedule.isEmpty()) {
@@ -60,11 +60,11 @@ public class ScheduleService {
 
         Schedule findSchedule = optionalSchedule.get();
 
-        return new ScheduleResponesDto(findSchedule.getUsername(), findSchedule.getTitle(), findSchedule.getTodo(), findSchedule.getCreatedAt(), findSchedule.getUpdatedAt());
+        return new ScheduleResponseDto(findSchedule.getUsername(), findSchedule.getTitle(), findSchedule.getTodo(), findSchedule.getCreatedAt(), findSchedule.getUpdatedAt());
     }
 
     //수정
-    public ScheduleResponesDto updateSchedule(Long id, ScheduleUpdateRequestDto dto) {
+    public ScheduleResponseDto updateSchedule(Long id, ScheduleUpdateRequestDto dto) {
         Schedule schedule = scheduleRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 일정이 없습니다."));
 
@@ -72,11 +72,10 @@ public class ScheduleService {
         if (dto.getTitle() != null) schedule.setTitle(dto.getTitle());
         if (dto.getTodo() != null) schedule.setTodo(dto.getTodo());
 
-        schedule.setUpdatedAt(LocalDateTime.now());
 
         Schedule updated = scheduleRepository.save(schedule);
 
-        return new ScheduleResponesDto(
+        return new ScheduleResponseDto(
                 updated.getId(),
                 updated.getUsername(),
                 updated.getTitle(),

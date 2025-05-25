@@ -1,7 +1,7 @@
 package com.example.scheduleapi.controller;
 
 import com.example.scheduleapi.dto.ScheduleRequestDto;
-import com.example.scheduleapi.dto.ScheduleResponesDto;
+import com.example.scheduleapi.dto.ScheduleResponseDto;
 import com.example.scheduleapi.dto.ScheduleUpdateRequestDto;
 import com.example.scheduleapi.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
@@ -20,42 +20,42 @@ public class ScheduleController {
 
     //생성
     @PostMapping
-    public ResponseEntity<ScheduleResponesDto> createSchedule(@RequestBody ScheduleRequestDto requestDto) {
+    public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto requestDto) {
 
-        ScheduleResponesDto scheduleResponesDto =
+        ScheduleResponseDto scheduleResponseDto =
                 scheduleService.postService(
                         requestDto.getUsername(),
                         requestDto.getTitle(),
                         requestDto.getTodo()
                 );
 
-        return new ResponseEntity<>(scheduleResponesDto,HttpStatus.CREATED);
+        return new ResponseEntity<>(scheduleResponseDto,HttpStatus.CREATED);
 
     }
     //다건 조회
     @GetMapping
-    public ResponseEntity<List<ScheduleResponesDto>> findAll() {
-        List<ScheduleResponesDto> scheduleResponesDtoList = scheduleService.findAll();
-        return new ResponseEntity<>(scheduleResponesDtoList, HttpStatus.OK);
+    public ResponseEntity<List<ScheduleResponseDto>> findAll() {
+        List<ScheduleResponseDto> scheduleResponseDtoList = scheduleService.findAll();
+        return new ResponseEntity<>(scheduleResponseDtoList, HttpStatus.OK);
     }
 
 
     //단건 조회
     @GetMapping("/{id}")
-    public ResponseEntity<ScheduleResponesDto> findByID(@PathVariable Long id) {
+    public ResponseEntity<ScheduleResponseDto> findByID(@PathVariable Long id) {
 
-        ScheduleResponesDto scheduleResponesDto = scheduleService.findByID(id);
+        ScheduleResponseDto scheduleResponseDto = scheduleService.findByID(id);
 
-        return new ResponseEntity<>(scheduleResponesDto, HttpStatus.OK);
+        return new ResponseEntity<>(scheduleResponseDto, HttpStatus.OK);
     }
 
     //수정
     @PatchMapping("/{id}")
-    public ResponseEntity<ScheduleResponesDto> updateSchedule(
+    public ResponseEntity<ScheduleResponseDto> updateSchedule(
             @PathVariable Long id,
             @RequestBody ScheduleUpdateRequestDto requestDto
     ) {
-        ScheduleResponesDto responseDto = scheduleService.updateSchedule(id, requestDto);
+        ScheduleResponseDto responseDto = scheduleService.updateSchedule(id, requestDto);
         return ResponseEntity.ok(responseDto);
     }
 
