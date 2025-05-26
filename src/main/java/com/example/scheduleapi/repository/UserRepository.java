@@ -23,4 +23,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
                                 HttpStatus.NOT_FOUND, "해당 일정이 존재하지 않습니다.")
                 );
     }
+
+    Optional<User> findUserByEmail(String email);
+
 }

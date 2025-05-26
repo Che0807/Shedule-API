@@ -32,7 +32,7 @@ public class UserController {
 
     @GetMapping("/{id}")
 
-    public ResponseEntity<UserResponseDto> findById(@PathVariable Long id) {
+    public ResponseEntity<UserResponseDto>  getUser(@PathVariable Long id) {
 
         UserResponseDto userResponseDto = userService.findByID(id);
 
@@ -56,8 +56,5 @@ public class UserController {
         userService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-
-
 }
 
