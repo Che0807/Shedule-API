@@ -21,7 +21,7 @@ public class AuthFilter extends OncePerRequestFilter {
         String path = request.getRequestURI();
 
         // 로그인, 회원가입 API는 인증 필터 적용 제외
-        if (path.startsWith("/auth/login") || path.startsWith("/auth/signup") || path.startsWith("/users")) {
+        if (path.startsWith("/auth/login") || path.startsWith("/users")) {
             filterChain.doFilter(request, response);
             return;
         }
